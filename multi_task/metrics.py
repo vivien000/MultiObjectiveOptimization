@@ -61,7 +61,7 @@ class RunningMetric(object):
         
     def get_result(self):
         if self._metric_type == 'ACC':
-            return {'acc': self.accuracy/self.num_updates}
+            return {'acc': float(self.accuracy)/self.num_updates}
         if self._metric_type == 'L1':
             return {'l1': self.l1/self.num_updates}
         if self._metric_type == 'IOU':

@@ -9,7 +9,7 @@ import errno
 import numpy as np
 import torch
 import codecs
-import scipy.misc as m
+import skimage.transform
 
 
 class MNIST(data.Dataset):
@@ -234,7 +234,7 @@ def read_image_file(path):
                 new_im[0:28,0:28] = lim
                 new_im[6:34,6:34] = rim
                 new_im[6:28,6:28] = np.maximum(lim[6:28,6:28], rim[0:22,0:22])
-                multi_data_im =  m.imresize(new_im, (28, 28), interp='nearest')
+                multi_data_im =  skimage.transform.resize(new_im, (28, 28))
                 multi_data[left*1 + j,:,:] = multi_data_im
         return torch.from_numpy(parsed).view(length, num_rows, num_cols), torch.from_numpy(multi_data).view(length,num_rows, num_cols), extension
 
@@ -267,5 +267,6 @@ if __name__ == '__main__':
             break
         else:
             plt.close()
+
 
 
